@@ -16,6 +16,7 @@ RUN apt update && apt install -y \
         igbinary \
         memcached \
         redis \
+        grpc \
       && docker-php-ext-install \
         curl \
         pdo \
@@ -29,10 +30,11 @@ RUN apt update && apt install -y \
         igbinary \
         memcached \
         opcache \
-        redis
+        redis \
+        grpc
 
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
-      && php -r "if (hash_file('sha384', 'composer-setup.php') === 'e0012edf3e80b6978849f5eff0d4b4e4c79ff1609dd1e613307e16318854d24ae64f26d17af3ef0bf7cfb710ca74755a') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" \
+      && php -r "if (hash_file('sha384', 'composer-setup.php') === '756890a4488ce9024fc62c56153228907f1545c228516cbf63f885e036d37e9a59d27d63f46af1d4d07ee0f76181c7d3') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" \
       && php composer-setup.php --install-dir=/usr/local/bin --filename=composer
 
 COPY conf/nginx.conf /etc/nginx/sites-enabled/default
